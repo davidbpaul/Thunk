@@ -1,8 +1,6 @@
-package Authentication;
+package Courses;
 
 import java.io.IOException;
-
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,16 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class HomeController
  */
-@WebServlet("/Login")
-public class LoginController extends HttpServlet {
+@WebServlet("/HomeController")
+public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public HomeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,13 +36,7 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
+		
 		try{
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
@@ -85,6 +77,14 @@ public class LoginController extends HttpServlet {
 			System.out.println("ERROR CONNECTING TO DATABASE " + e.getMessage());
 		}
 		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

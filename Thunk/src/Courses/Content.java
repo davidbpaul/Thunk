@@ -1,33 +1,28 @@
-package Authentication;
+package Courses;
 
 import java.io.IOException;
-
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class Content
  */
-@WebServlet("/Login")
-public class LoginController extends HttpServlet {
+@WebServlet("/Content")
+public class Content extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public Content() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,35 +39,20 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
+		// TODO Auto-generated method stub
 		try{
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String dbEmail = null;
-			String dbPassword = null;
-			String sql ="SELECT * FROM users WHERE email = ? and password = ?";
+			String content = request.getParameter("content");
+			String sub = "yes";
+		
+			String sql ="INSERT INTO sub(user_id, assignment_id, mark, submitted, content) values(?,?,?)";
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
 				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "password");
 				PreparedStatement ps = conn.prepareStatement(sql);
-				ps.setString(1, email);
-				ps.setString(2, password);
-				ResultSet rs = ps.executeQuery();
-				
-				while(rs.next()){
-					dbEmail = rs.getString(3);
-					dbPassword = rs.getString(4);
-					System.out.println(dbEmail);
-				}
-				if(email.equals(dbEmail) && password.equals(dbPassword)){
-					HttpSession session = request.getSession(true);
-					session.setAttribute("user", email);
-					session.setMaxInactiveInterval(99999999); 
-					response.sendRedirect("home.jsp");
-				}else{
-					RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-					rd.include(request, response);
-				}
+				ps.setString(2, sub);
+				ps.setString(1, content);
+		
+				ps.executeUpdate();
 				
 				
 				
@@ -84,7 +64,6 @@ public class LoginController extends HttpServlet {
 		}catch(ClassNotFoundException e){
 			System.out.println("ERROR CONNECTING TO DATABASE " + e.getMessage());
 		}
-		
 	}
 
 }

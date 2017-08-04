@@ -34,7 +34,7 @@ public class RegistrationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -46,21 +46,29 @@ public class RegistrationController extends HttpServlet {
 		try{
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
+			String passwordRepeat = request.getParameter("passwordRepeat");
 			String name = request.getParameter("name");
 			String sql ="INSERT INTO users(email, password, name) values(?,?,?)";
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
-				Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "password");
-				PreparedStatement ps = conn.prepareStatement(sql);
-				ps.setString(1, name);
-				ps.setString(2, email);
-				ps.setString(3, password);
-				ps.executeUpdate();
-				PrintWriter out  = response.getWriter();
-				HttpSession session = request.getSession(true);
-				session.setAttribute("user", email);
-				session.setMaxInactiveInterval(99999999); 
-				response.sendRedirect("home.jsp");
+				if(password.equals(passwordRepeat)){
+					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "password");
+					PreparedStatement ps = conn.prepareStatement(sql);
+					ps.setString(1, email);
+					ps.setString(2, password);
+					ps.setString(3, name);
+					ps.executeUpdate();
+					PrintWriter out  = response.getWriter();
+					HttpSession session = request.getSession(true);
+					session.setAttribute("user", email);
+					session.setMaxInactiveInterval(99999999); 
+					response.sendRedirect("home.jsp");
+				}else{
+					System.out.println("Passwords do not match ");
+					System.out.println(password);
+					System.out.println(passwordRepeat);
+					
+				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
