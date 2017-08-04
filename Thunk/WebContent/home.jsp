@@ -43,19 +43,55 @@ ResultSet resultSet = null;
 </head>
 <body>
   <nav class="navbar navbar-inverse" style="margin-bottom:0px;">
-    <%
-		if (session != null) {
-			if (session.getAttribute("user") != null) {
-				String name = (String) session.getAttribute("user");
-				out.print("Hello, " + name + "  Welcome to ur Profile");
-			} else {
-				response.sendRedirect("login.jsp");
-			}
-		}
-	%>
-  <form action="Logout" method="post">
-    <input type="submit" value="Logout">
-  </form>
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.jsp">Thunk</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-left">
+          <li style="color:white;">
+            <%
+            if (session != null) {
+              if (session.getAttribute("user") != null) {
+          		connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
+                String email1 = (String) session.getAttribute("user");
+                Statement innerNavStatement = connection.createStatement();
+         		ResultSet innerNavResultSet = innerNavStatement.executeQuery("SELECT * FROM users WHERE email='"+ email1 +"';");
+                while (innerNavResultSet.next()) {
+                  String firstNav =  innerNavResultSet.getString("name");
+                  out.print("Hello, " + firstNav);
+                  }
+                innerNavResultSet.close();
+                innerNavStatement.close();
+
+              } else {
+                response.sendRedirect("login.jsp");
+              }
+            }
+          %>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active"><a href="home.jsp">Courses</a></li>
+          <li><a href="myCourses.jsp"> My Courses</a></li>
+          <li><a href="account.jsp">Account</a></li>
+          <li>
+              <form action="Logout" method="post">
+                <input style="margin-top:8px;" class="btn btn-info" role="button" type="submit" value="Logout">
+              </form>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
   </nav>
   <div class="pic">
     <img class="banner-image-full"
@@ -70,17 +106,17 @@ ResultSet resultSet = null;
             Students are Viewing
           </h2>
         </div>
-        
+
         <%
-			try{ 
+			try{
 			connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 			statement=connection.createStatement();
 			String sql ="SELECT * FROM courses";
-			
+
 			resultSet = statement.executeQuery(sql);
 			while(resultSet.next()){
 		%>
-		
+
 		<div class="col-md-3">
 			<a href="course.jsp?page=<%=resultSet.getString("_id")%>">
 	          <div class="card">
@@ -95,7 +131,7 @@ ResultSet resultSet = null;
 	              <span>
 	                <%=resultSet.getString("title") %>
 	              </span>
-	
+
 	            </div>
 	            <div class="cardPrice">
 	              <span class="price">
@@ -105,16 +141,16 @@ ResultSet resultSet = null;
 	          </div>
             </a>
         </div>
-		
-		
-	<% 
+
+
+	<%
 	}
-	
+
 	} catch (Exception e) {
 	e.printStackTrace();
 	}
 	%>
-     
+
 
 
       </div>

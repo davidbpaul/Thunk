@@ -46,6 +46,7 @@ public class LogoutController extends HttpServlet {
 		// session.setAttribute("user", null);
 		session.removeAttribute("user");
 		session.getMaxInactiveInterval();
+		response.sendRedirect("login.jsp");
 	}
 
 }
