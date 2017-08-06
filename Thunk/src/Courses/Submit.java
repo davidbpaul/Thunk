@@ -1,4 +1,4 @@
-package Authentication;
+package Courses;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,19 +12,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Registration
+ * Servlet implementation class Submit
  */
-@WebServlet("/Registration")
-public class RegistrationController extends HttpServlet {
+@WebServlet("/Submit")
+public class Submit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegistrationController() {
+    public Submit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,52 +33,40 @@ public class RegistrationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		doGet(request, response);
 		
 		try{
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String passwordRepeat = request.getParameter("passwordRepeat");
-			String name = request.getParameter("name");
-			String sql ="INSERT INTO users(email, password, name, city, address) values(?,?,?,?,?)";
+			String page = request.getParameter("page");
+			String course= request.getParameter("course");
+			String content = request.getParameter("content");
+			String assignment_id = request.getParameter("assignment_id");
+			String user_id = request.getParameter("user_id");
+			String sql ="INSERT INTO submitted(user_id, assignment_id,content) VALUES(?,?,?)";
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
-				if(password.equals(passwordRepeat)){
 					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "password");
 					PreparedStatement ps = conn.prepareStatement(sql);
-					ps.setString(1, email);
-					ps.setString(2, password);
-					ps.setString(3, name);
-					ps.setString(4, "");
-					ps.setString(5, "");
-					ps.executeUpdate();
-					PrintWriter out  = response.getWriter();
-					HttpSession session = request.getSession(true);
-					session.setAttribute("user", email);
-					session.setMaxInactiveInterval(99999999); 
-					response.sendRedirect("home.jsp");
-				}else{
-					System.out.println("Passwords do not match ");
-					System.out.println(password);
-					System.out.println(passwordRepeat);
+					ps.setString(1, user_id);
+					ps.setString(2, assignment_id);
+					ps.setString(3, content);
+		
 					
-				}
+					ps.executeUpdate();
+					response.sendRedirect("courseContent.jsp?page="+page +"&&course="+ course);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("ERROR WRONG PASSWORD OR USERNAME " + e.getMessage());
+				System.out.println("ERROR WRONG Card " + e.getMessage());
 			}
 		}catch(ClassNotFoundException e){
 			System.out.println("ERROR CONNECTING TO DATABASE " + e.getMessage());
 		}
-		
 	}
 
 }

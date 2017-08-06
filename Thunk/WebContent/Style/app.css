@@ -520,3 +520,7 @@ margin: auto;
 .clicker:hover{
     background:#eee;
 }
+.hidden {
+  display: none;
+  visibility: hidden;
+} 

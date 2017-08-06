@@ -69,7 +69,7 @@ ResultSet resultSet = null;
               connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
                 String email1 = (String) session.getAttribute("user");
                 Statement innerNavStatement = connection.createStatement();
-            ResultSet innerNavResultSet = innerNavStatement.executeQuery("SELECT * FROM users WHERE email='"+ email1 +"';");
+                ResultSet innerNavResultSet = innerNavStatement.executeQuery("SELECT * FROM users WHERE email='"+ email1 +"';");
                 while (innerNavResultSet.next()) {
                   String firstNav =  innerNavResultSet.getString("name");
                   out.print("Hello, " + firstNav);
@@ -115,7 +115,7 @@ ResultSet resultSet = null;
 			try{
 			connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
 			statement=connection.createStatement();
-			String sql = "SELECT * FROM courses INNER JOIN payment ON courses._id= payment.course_id;";
+			String sql = "SELECT courses.title,courses._id FROM courses INNER JOIN payment ON courses._id= payment.course_id INNER JOIN users ON payment.user_id = users._id WHERE users.email ='" +(String) session.getAttribute("user") + "';";
 
 			resultSet = statement.executeQuery(sql);
 			while(resultSet.next()){

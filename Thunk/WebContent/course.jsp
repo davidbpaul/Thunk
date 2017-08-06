@@ -128,7 +128,9 @@ ResultSet resultSet = null;
         </p>
       </div>
       <div class="col-md-3">
-        <button type="button" class="btn-lg btn-block btn-success btn-margin">Enroll Now</button>
+        <a href="payment.jsp?page=<%=resultSet.getString("_id")%>">
+          <button type="button" class="btn-lg btn-block btn-success btn-margin">Enroll Now</button>
+        </a>
       </div>
     </div>
     <div class="col-md-8">
