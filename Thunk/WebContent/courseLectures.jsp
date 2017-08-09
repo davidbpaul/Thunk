@@ -112,19 +112,36 @@ ResultSet resultSet = null;
       if(request.getParameter("page") == null || request.getParameter("page") == "" ){
     	  num = "1";
       }else{
-    	  num = request.getParameter("page");
-    	  int parced =  Integer.parseInt(num);
-        if(parced > 4){
-          if(parced % 4 == 3){
-            num = "1";
-          }else if(parced % 4 == 2){
-            num = "2";
-          }else if(parced % 4 == 1){
-            num = "3";
-          }else if(parced % 4 == 0){
-            num = "4";
+
+        num = request.getParameter("page");
+
+
+        Statement innerParamStatement = connection.createStatement();
+          ResultSet innerParamResultSet = innerParamStatement.executeQuery("SELECT * FROM marks WHERE course_id="+ courseId+";");
+          while (innerParamResultSet.next()) {
+            int parced = Integer.parseInt(num);
+            int first =  Integer.parseInt(innerParamResultSet.getString("marks.lecture_id1"));
+            int secound =  Integer.parseInt(innerParamResultSet.getString("marks.lecture_id2"));
+            int third =  Integer.parseInt(innerParamResultSet.getString("marks.lecture_id3"));
+            int fourth =  Integer.parseInt(innerParamResultSet.getString("marks.lecture_id4"));
+            if(parced == first){
+              num = "1";
+            }else if(parced == secound){
+              num = "2";
+            }else if(parced == third){
+              num = "3";
+            }else if(parced == fourth){
+              num = "4";
+            }
+            System.out.println("first " + first);
+            System.out.println("secound " + secound);
           }
-        }
+          System.out.println("num " + num);
+
+          innerParamResultSet.close();
+          innerParamStatement.close();
+
+
       }
 
 			String sql2 ="SELECT courses.title, lectures.title, lectures.sub1, lectures.sub2, lectures.sub3, lectures.d1,  lectures.d2, lectures.d3, marks._id, marks.course_id, marks.lecture_id1,marks.lecture_id2,marks.lecture_id3,marks.lecture_id4, marks.assignment_id1, marks.assignment_id2 FROM marks INNER JOIN lectures on marks.lecture_id"+ num +" = lectures._id INNER JOIN courses on marks.course_id = courses._id WHERE courses._id="+ courseId +";";

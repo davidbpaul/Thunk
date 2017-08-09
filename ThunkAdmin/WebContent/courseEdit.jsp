@@ -110,11 +110,14 @@ ResultSet resultSet = null;
               Edit Course
             </h2>
           </div>
-          <div class="col-md-3 col-md-offset-3">
-            <a href="marks.jsp?course=<%=request.getParameter("course")%>"><button type="submit" class=" btn-top btn btn-block btn-default">Marks</button></a>
+          <div class="col-md-2 col-md-offset-3">
+            <a style="margin-left:0px;"href="marks.jsp?course=<%=request.getParameter("course")%>"><button type="submit" style="margin-left:0px;"class=" btn-top btn btn-block btn-default">Marks</button></a>
           </div>
           <div class="col-md-3">
-            <a href="addStudent.jsp?course=<%=request.getParameter("course")%>"><button type="submit" class=" btn-top btn btn-block btn-default">Add Student</button></a>
+            <a href="addStudent.jsp?course=<%=request.getParameter("course")%>"><button type="submit" style="margin-left:0px;"class=" btn-top btn btn-block btn-default">Add Student</button></a>
+          </div>
+          <div class="col-md-1">
+            <a href="courseSettings.jsp?course=<%=request.getParameter("course")%>"><button style="padding:9px;" type="submit" class=" btn-top btn btn-block btn-default"><i class="fa fa-cog" aria-hidden="true"></i></button></a>
           </div>
         </div>
 

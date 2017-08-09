@@ -189,6 +189,11 @@ margin: auto;
   margin-right: 10px;
   min-height: 36px;
   padding-bottom: 15px;
+  position:absolute;
+  bottom: 0px;
+  top: 210px;
+  right: 5px;
+
 }
 .price{
   color: #17aa1c;

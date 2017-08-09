@@ -80,7 +80,7 @@ ResultSet resultSet = null;
          </ul>
          <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="home.jsp"> My Courses</a></li>
-           <!-- <li><a href="account.jsp">Account</a></li> -->
+       <!--     <li><a href="account.jsp">Account</a></li> -->
            <li>
                <form action="Logout" method="post">
                  <input style="margin-top:8px;" class="btn btn-info" role="button" type="submit" value="Logout">
@@ -104,29 +104,55 @@ ResultSet resultSet = null;
 
   <div class="focusPoint">
     <div class="col-md-10 col-md-offset-1">
-      <div class="loginOuterStudent">
+      <div class="loginOuterSet">
         <div class="loginPadding">
           <div class="signInHeader">
-            <h1 class="signInHeaderFont">Course Students</h1>
+            <h1 class="signInHeaderFont">Course Settings</h1>
           </div>
           <div class="accountContent">
             <div class="loginTop">
               <div class="loginForm col-md-10 col-md-offset-1">
-                <form action="AddStudent" method="post">
+                <form action="DeleteCourse" method="post">
                   <div class="col-md-4 col-md-offset-8">
-                    <input name="update" type="submit" class="btn btn-block btn-success" value="Add Student"></input>
+                    <button name="update" type="submit" class="btn btn-block btn-danger">Delete</button>
                   </div>
                   <div class="form-group">
-                    <input readonly name="course_id"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%= request.getParameter("course")%>">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Students Email:</label>
-                    <input name="email"type="text" class="form-control" id="exampleInputEmail1" >
+                    <input readonly name="_id"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=request.getParameter("course") %>">
                   </div>
                 </form>
               </div>
               <div class="row">
                 <div class="registerLoginForm col-md-10 col-md-offset-1">
+                  <a href="courseInfo.jsp?course=<%=request.getParameter("course")%>&&lec=1">
+                    <div class="notes-sidebar-note">
+                      <h5>Lecture 1</h5>
+                    </div>
+                  </a>
+                  <a href="courseInfo.jsp?course=<%=request.getParameter("course")%>&&lec=2">
+                    <div class="notes-sidebar-note">
+                      <h5>Lecture 2</h5>
+                    </div>
+                  </a>
+                  <a href="courseInfo.jsp?course=<%=request.getParameter("course")%>&&lec=3">
+                    <div class="notes-sidebar-note">
+                      <h5>Lecture 3</h5>
+                    </div>
+                  </a>
+                  <a href="courseInfo.jsp?course=<%=request.getParameter("course")%>&&lec=4">
+                    <div class="notes-sidebar-note">
+                      <h5>Lecture 4</h5>
+                    </div>
+                  </a>
+                        <a href="courseAssignment.jsp?course=<%=request.getParameter("course")%>&&as=1">
+                    <div class="notes-sidebar-note">
+                      <h5>Assignment 1</h5>
+                    </div>
+                  </a>
+                  <a href="courseAssignment.jsp?course=<%=request.getParameter("course")%>&&as=2">
+                    <div class="notes-sidebar-note">
+                      <h5>Assignment 2</h5>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -142,6 +168,7 @@ ResultSet resultSet = null;
       </div>
     </div>
   </div>
+
   	<%
 	}
 

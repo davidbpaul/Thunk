@@ -116,14 +116,29 @@ ResultSet resultSet = null;
           num = "1";
         }else{
           num = request.getParameter("page");
-          int parced =  Integer.parseInt(num);
-          if(parced > 2){
-            if(parced % 2 == 1){
-              num = "1";
-            }else if(parced % 2 == 0){
-              num = "2";
+
+
+          Statement innerParamStatement = connection.createStatement();
+            ResultSet innerParamResultSet = innerParamStatement.executeQuery("SELECT * FROM marks WHERE course_id="+ courseId+";");
+            while (innerParamResultSet.next()) {
+           		int parced = Integer.parseInt(num);
+              int first =  Integer.parseInt(innerParamResultSet.getString("marks.assignment_id1"));
+              int secound =  Integer.parseInt(innerParamResultSet.getString("marks.assignment_id2"));
+              if(parced == first){
+                num = "1";
+              }else if(parced == secound){
+                num = "2";
+              }
+              System.out.println("first " + first);
+              System.out.println("secound " + secound);
             }
-          }
+            System.out.println("num " + num);
+         
+            innerParamResultSet.close();
+            innerParamStatement.close();
+
+
+
         }
   			boolean b = false;
   			if(b == true){
