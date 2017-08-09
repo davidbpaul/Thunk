@@ -174,6 +174,7 @@ margin: auto;
   width: 80%;
   margin: auto;
   margin-bottom: 20px;
+  height:240px;
 
 }
 .cardDescription{
@@ -562,4 +563,22 @@ margin: auto;
   box-shadow: 1px 0 0 0 #d2d2d2, -1px 0 0 0 #d2d2d2, 0 1px 0 0 #b6b6b6, 0 2px 0 0 #d2d2d2, 2px 0 0 0 #e6e6e6, -2px 0 0 0 #e6e6e6, 0 3px 0 0 #e6e6e6, 0 -1px 0 0 #e6e6e6;
   border-radius: 4px;
   border: 2px solid #f2f2f2;
+}
+.loginOuterInfo{
+  overflow: scroll;
+background-color: #ffffff;
+height: 902px;
+margin-top: 50px;
+box-shadow: 1px 0 0 0 #d2d2d2, -1px 0 0 0 #d2d2d2, 0 1px 0 0 #b6b6b6, 0 2px 0 0 #d2d2d2, 2px 0 0 0 #e6e6e6, -2px 0 0 0 #e6e6e6, 0 3px 0 0 #e6e6e6, 0 -1px 0 0 #e6e6e6;
+border-radius: 4px;
+border: 2px solid #f2f2f2;
+}
+.loginOuterSet{
+  overflow: scroll;
+background-color: #ffffff;
+height: 672px;
+margin-top: 50px;
+box-shadow: 1px 0 0 0 #d2d2d2, -1px 0 0 0 #d2d2d2, 0 1px 0 0 #b6b6b6, 0 2px 0 0 #d2d2d2, 2px 0 0 0 #e6e6e6, -2px 0 0 0 #e6e6e6, 0 3px 0 0 #e6e6e6, 0 -1px 0 0 #e6e6e6;
+border-radius: 4px;
+border: 2px solid #f2f2f2;
 }

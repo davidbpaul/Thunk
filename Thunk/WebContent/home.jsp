@@ -106,7 +106,7 @@ ResultSet resultSet = null;
             Students are Viewing
           </h2>
         </div>
-
+        <div class="col-md-12">
         <%
 			try{
 			connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
@@ -152,7 +152,7 @@ ResultSet resultSet = null;
 	%>
 
 
-
+        </div>
       </div>
     </div>
   </div>

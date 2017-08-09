@@ -1,7 +1,6 @@
 package Courses;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,21 +12,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.mysql.jdbc.Statement;
 
 /**
- * Servlet implementation class New
+ * Servlet implementation class LectureMaker
  */
-@WebServlet("/New")
-public class New extends HttpServlet {
+@WebServlet("/LectureMaker")
+public class LectureMaker extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public New() {
+    public LectureMaker() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,57 +41,62 @@ public class New extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-//		doGet(request, response);
 		try{
-			String _id = request.getParameter("_id");
+			String course= request.getParameter("course");
+			String lec = request.getParameter("lec");
+			System.out.println(lec);
+			System.out.println(course);
 			String title = request.getParameter("title");
-			String price = request.getParameter("price");
-			String effort = request.getParameter("effort");
-			String length = request.getParameter("length");
-			String subject = request.getParameter("subject");
-			String about = request.getParameter("about");
-			String learn = request.getParameter("learn");
-			String learn2 = request.getParameter("learn2");
-			String learn3 = request.getParameter("learn3");
+			String Subject1 = request.getParameter("Subject1");
+			String Subject2 = request.getParameter("Subject2");
+			String Subject3 = request.getParameter("Subject3");
+			String Description1 = request.getParameter("Description1");
+			String Description2 = request.getParameter("Description2");
+			String Description3 = request.getParameter("Description3");
+		
+
 	
-			String sql ="INSERT INTO courses(title, price, effort, length, subject, about, learn, learn2, learn3) values(?,?,?,?,?,?,?,?,?)";
-			
+        
+			String sql ="INSERT INTO lectures(title,sub1,sub2,sub3,d1,d2,d3) values(?,?,?,?,?,?,?)";
+			String sql2 ="UPDATE marks SET lecture_id"+ lec+"= ? WHERE course_id ="+course +";";
 			Class.forName("com.mysql.jdbc.Driver");
 			try {
 		
 					Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/school", "root", "password");
+					
+				    java.sql.Statement innerStatement = conn.createStatement();
 					PreparedStatement ps = conn.prepareStatement(sql);
 					ps.setString(1, title);
-					ps.setString(2,  price);
-					ps.setString(3, effort);
-					ps.setString(4, length);
-					ps.setString(5, subject);
-					ps.setString(6, about);
-					ps.setString(7, learn);
-					ps.setString(8, learn2);
-					ps.setString(9, learn3);
+					ps.setString(2, Subject1);
+					ps.setString(3, Subject2);
+					ps.setString(4, Subject3);
+					ps.setString(5, Description1);
+					ps.setString(6, Description2);
+					ps.setString(7, Description3);
 					
 					ps.executeUpdate();
-					
-					   java.sql.Statement innerStatement = conn.createStatement();
-					    ResultSet innerResultSet = innerStatement.executeQuery("SELECT * FROM courses WHERE title='"+title+"' AND price= '"+price +"';");
-					    while (innerResultSet.next()) {
-					    	String first =  innerResultSet.getString("courses._id");
-					    	String sql2 ="INSERT INTO marks(course_id) values(?)";
-							
-					    	PreparedStatement ps2 = conn.prepareStatement(sql2);
-							ps2.setString(1, first);
-					
-							
-							ps2.executeUpdate();
-							
-					    	
-					    }
-					    innerResultSet.close();
-					    innerStatement.close();
+				    ResultSet innerResultSet = innerStatement.executeQuery("SELECT _id FROM lectures WHERE d1='"+ Description1 +"' AND d2='"+Description2 + "' AND title='"+title +"' AND sub1='"+Subject1+"' AND sub2='"+Subject2+"';");
 			
-					response.sendRedirect("home.jsp");
+			
+				    while (innerResultSet.next()) {
+				    	
+				    	String first =  innerResultSet.getString("_id");
+				    	System.out.println(first);
+				    	PreparedStatement ps2 = conn.prepareStatement(sql2);
+						ps2.setString(1, first);
+						ps2.executeUpdate();
+	
+					
+	
+
 		
+				
+				    }
+				    innerResultSet.close();
+				    innerStatement.close(); 
+				    
+					response.sendRedirect("home.jsp");
+				    
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -104,8 +105,5 @@ public class New extends HttpServlet {
 		}catch(ClassNotFoundException e){
 			System.out.println("ERROR CONNECTING TO DATABASE " + e.getMessage());
 		}
-		
-		
 	}
-
 }

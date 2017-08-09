@@ -319,8 +319,32 @@ ResultSet resultSet = null;
                   <h2>Assignment <%= num %></h2>
                 </div>
                 <div class="col-md-3">
+                  <%
 
-                  <h5 style="color:blue;">Not Marked</h5>
+                  Statement innerSub2Statement = connection.createStatement();
+                  String e2 = (String) session.getAttribute("user");
+                  ResultSet innerSub2ResultSet = innerSub2Statement.executeQuery("SELECT submitted._id, submitted.mark, submitted.user_id,submitted.assignment_id, submitted.date,submitted.content FROM submitted INNER JOIN users On submitted.user_id = users._id  INNER JOIN assignments ON submitted.assignment_id = assignments._id WHERE users.email = '"+ e2 +"'  AND assignments._id = '" + resultSet.getString("assignments._id") + "';");
+
+              while (innerSub2ResultSet.next()) {
+                String con2 = innerSub2ResultSet.getString("submitted.mark");
+
+                    if(con2 != null){
+                    %>
+                    <h5 style="color:blue;"><%= con2 %></h5>
+                  <%
+                }else{
+
+                  %>
+                      <h5 style="color:blue;">Not Marked</h5>
+                  <%
+                                    }
+
+              }
+              innerSub2ResultSet.close();
+              innerSub2Statement.close();
+
+                  %>
+
 
 
                   <h6>Submission Deadline: <%=resultSet.getString("assignments.date")%></h5>
