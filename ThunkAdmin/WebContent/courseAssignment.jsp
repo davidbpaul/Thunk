@@ -219,7 +219,60 @@ ResultSet resultSet = null;
 	}
 
 	} catch (Exception e) {
-	e.printStackTrace();
+		%>
+		<div class="focusPoint">
+	    <div class="col-md-10 col-md-offset-1">
+	      <div class="loginOuterCourseAssignment">
+	        <div class="loginPadding">
+	          <div class="signInHeader">
+	            <h1 class="signInHeaderFont">Assignment </h1>
+	          </div>
+	          <div class="accountContent">
+	            <div class="loginTop">
+	              <div class="loginForm col-md-10 col-md-offset-1">
+	                <form action="DescriptionMaker" method="post">
+	                  <div class="col-md-4 col-md-offset-8">
+	                    <button name="update" type="submit" class="btn btn-block btn-success">Save</button>
+	                  </div>
+	                  <div class="form-group">
+                    <input readonly name="_id"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=resultSet.getString("_id") %>">
+                    <input readonly name="course"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=request.getParameter("course")%>">
+                    <input readonly name="as"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=request.getParameter("as")%>">
+                  </div>
+                  <div class="form-group">
+
+                    <label for="exampleInputEmail1">Due Date: </label>
+                    <input name="Date"class="form-control" placholder="Date">
+
+                   </div>
+                   <div class="form-group">
+
+                            <label for="exampleInputEmail1">Description <%=request.getParameter("as")%></label>
+                              <textarea name="Description1"class="form-control" rows="5" id="comment" placholder="Update Assignment"></textarea>
+
+
+                             </div>
+
+                </form>
+              </div>
+              <div class="row">
+                <div class="registerLoginForm col-md-10 col-md-offset-1">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="loginBottom">
+          <div class="col-md-2">
+            <a href="home.jsp"><button type="submit" class=" btn-top btn btn-block btn-default">Back</button>
+          </div>
+          <div class="col-md-10 b-text">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+       <%
 	}
 	%>
 </body>

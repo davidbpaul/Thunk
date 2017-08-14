@@ -79,7 +79,7 @@ public class AddStudent extends HttpServlet {
 				    innerResultSet.close();
 				    innerStatement.close();
 		
-					response.sendRedirect("home.jsp");
+					response.sendRedirect("courseEdit.jsp?course="+ course_id);
 				    }
 				    
 			} catch (SQLException e) {

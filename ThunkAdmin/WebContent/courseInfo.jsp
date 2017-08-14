@@ -1,3 +1,4 @@
+
 <%@page import="java.sql.DriverManager" %>
 <%@page import="java.sql.ResultSet" %>
 <%@page import="java.sql.Statement" %>
@@ -60,10 +61,10 @@ ResultSet resultSet = null;
              <%
              if (session != null) {
                if (session.getAttribute("user") != null) {
-           		connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
+               connection = DriverManager.getConnection(connectionUrl+dbName, userId, password);
                  String email1 = (String) session.getAttribute("user");
                  Statement innerNavStatement = connection.createStatement();
-          		ResultSet innerNavResultSet = innerNavStatement.executeQuery("SELECT * FROM admins WHERE email='"+ email1 +"';");
+              ResultSet innerNavResultSet = innerNavStatement.executeQuery("SELECT * FROM admins WHERE email='"+ email1 +"';");
                  while (innerNavResultSet.next()) {
                    String firstNav =  innerNavResultSet.getString("name");
                    out.print("Hello, " + firstNav);
@@ -117,7 +118,7 @@ ResultSet resultSet = null;
          }
        System.out.println("first " + first);
        System.out.println("secound " + secound);
-       
+
 
    %>
 
@@ -136,15 +137,16 @@ ResultSet resultSet = null;
 
                   Statement innerSubStatement = connection.createStatement();
                   String e = (String) session.getAttribute("user");
+
                   ResultSet innerSubResultSet = innerSubStatement.executeQuery("SELECT * FROM lectures INNER JOIN marks ON lectures._id = marks.lecture_id"+ num +" WHERE marks.course_id="+request.getParameter("course")+";");
               while (innerSubResultSet.next()) {
                 String titl = innerSubResultSet.getString("lectures.title");
                 String sub1 = innerSubResultSet.getString("lectures.sub1");
-                String d1 = innerSubResultSet.getString("lectures.d1");               
+                String d1 = innerSubResultSet.getString("lectures.d1");
 
                 String sub2 = innerSubResultSet.getString("lectures.sub2");
                 String d2 = innerSubResultSet.getString("lectures.d2");
-                
+
                 String sub3 = innerSubResultSet.getString("lectures.sub3");
                 String d3 = innerSubResultSet.getString("lectures.d3");
 
@@ -262,13 +264,80 @@ ResultSet resultSet = null;
     </div>
   </div>
 
-  	<%
-	}
+    <%
+  }
 
-	} catch (Exception e) {
-	e.printStackTrace();
-	}
-	%>
+  } catch (Exception e) {
+  e.printStackTrace();
+%> <div class="focusPoint">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="loginOuterInfo">
+        <div class="loginPadding">
+          <div class="signInHeader">
+            <h1 class="signInHeaderFont">Lecture <%=request.getParameter("lec") %></h1>
+          </div>
+          <div class="accountContent">
+            <div class="loginTop">
+              <div class="loginForm col-md-10 col-md-offset-1">
+      <form action="LectureMaker" method="post">
+  <div class="col-md-4 col-md-offset-8">
+    <button name="update" type="submit" class="btn btn-block btn-success">Save</button>
+  </div>
+  <div class="form-group">
+    <input readonly name="_id"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=resultSet.getString("_id") %>">
+    <input readonly name="course"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=request.getParameter("course")%>">
+    <input readonly name="lec"type="text" class="form-control hidden" id="exampleInputEmail1" value="<%=request.getParameter("lec")%>">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Title</label>
+    <input name="title"type="text" class="form-control" id="exampleInputEmail1" >
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Subject 1</label>
+    <input name="Subject1"type="text" class="form-control" id="exampleInputEmail1" >
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Description 1</label>
+      <textarea name="Description1"class="form-control" rows="5" id="comment"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Subject 2</label>
+    <input name="Subject2"type="text" class="form-control" id="exampleInputEmail1" >
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Description 2</label>
+      <textarea name="Description2"class="form-control" rows="5" id="comment"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Subject3</label>
+    <input name="Subject3"type="text" class="form-control" id="exampleInputEmail1" >
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Description 3</label>
+      <textarea name="Description3"class="form-control" rows="5" id="comment"></textarea>
+  </div>
+        </form>
+                 </div>
+              <div class="row">
+                <div class="registerLoginForm col-md-10 col-md-offset-1">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="loginBottom">
+          <div class="col-md-2">
+            <a href="home.jsp"><button type="submit" class=" btn-top btn btn-block btn-default">Back</button>
+          </div>
+          <div class="col-md-10 b-text">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%
+  }
+  %>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

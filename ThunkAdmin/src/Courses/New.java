@@ -58,6 +58,8 @@ public class New extends HttpServlet {
 			String learn2 = request.getParameter("learn2");
 			String learn3 = request.getParameter("learn3");
 	
+		
+			
 			String sql ="INSERT INTO courses(title, price, effort, length, subject, about, learn, learn2, learn3) values(?,?,?,?,?,?,?,?,?)";
 			
 			Class.forName("com.mysql.jdbc.Driver");
@@ -76,6 +78,9 @@ public class New extends HttpServlet {
 					ps.setString(9, learn3);
 					
 					ps.executeUpdate();
+				
+					
+				    
 					
 					   java.sql.Statement innerStatement = conn.createStatement();
 					    ResultSet innerResultSet = innerStatement.executeQuery("SELECT * FROM courses WHERE title='"+title+"' AND price= '"+price +"';");

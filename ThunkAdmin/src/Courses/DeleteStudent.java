@@ -59,7 +59,7 @@ public class DeleteStudent extends HttpServlet {
 					ps.executeUpdate();
 			
 		
-					response.sendRedirect("home.jsp");
+					response.sendRedirect("courseEdit.jsp?course="+ course_id);
 				    
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
